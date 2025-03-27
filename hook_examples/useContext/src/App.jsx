@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import React, { createContext, useState, useContext } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+// Creamos el contexto
+const MiContexto = createContext();
+
+// Creamos un proveedor del contexto que envolverá los componentes que necesitan acceder a él
+const MiProveedor = ({ children }) => {
+  const [valor, setValor] = useState("Hola Mundo");
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <MiContexto.Provider value={{ valor, setValor }}>
+      {children}
+    </MiContexto.Provider>
+  );
+};
 
-export default App
+// Componente que consume el contexto mediante useContext
+const ComponenteHijo = () => {
+  const { valor, setValor } = useContext(MiContexto);
+
+  return (
+    <div>
+      <h1>{valor}</h1>
+      <button onClick={() => setValor("¡Hola React Context!")}>
+        Cambiar Valor
+      </button>
+    </div>
+  );
+};
+
+const App = () => (
+  <MiProveedor>
+    <ComponenteHijo />
+  </MiProveedor>
+);
+
+export default App;

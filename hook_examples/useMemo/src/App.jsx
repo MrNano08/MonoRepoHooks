@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import React, { useState, useMemo } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+function CalculoCostoso({ numero }) {
+  const resultado = useMemo(() => {
+    let suma = 0;
+    for (let i = 0; i < 10000000; i++) {
+      suma += numero;
+    }
+    return suma;
+  }, [numero]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  return <p>Resultado del cálculo: {resultado}</p>;
 }
 
-export default App
+function EjemploUseMemo() {
+  const [numero, setNumero] = useState(1);
+
+  return (
+    <div>
+      <h2>Ejemplo useMemo</h2>
+      <input
+        type="number"
+        value={numero}
+        onChange={e => setNumero(Number(e.target.value))}
+      />
+      <CalculoCostoso numero={numero} />
+    </div>
+  );
+}
+
+export default EjemploUseMemo;
