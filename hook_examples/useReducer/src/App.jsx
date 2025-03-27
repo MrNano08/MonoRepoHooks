@@ -25,7 +25,7 @@ function ContadorConReducer() {
       <p>Contador: {estado.contador}</p>
       <button onClick={() => dispatch({ type: 'incrementar' })}>+</button>
       <button onClick={() => dispatch({ type: 'decrementar' })}>-</button>
-      <button onClick={() => dispatch({ type: 'reiniciar' })}>Restart</button>
+      <button onClick={() => dispatch({ type: 'reiniciar' })}>↺</button>
     </div>
   );
 }
