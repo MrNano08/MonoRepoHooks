@@ -6,6 +6,7 @@
     "hookExamples/*"
   ],
   "scripts": {
+    "sui": "sui-mono",
     "co": "sui-mono commit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
